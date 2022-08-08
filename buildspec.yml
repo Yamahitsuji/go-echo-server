@@ -12,6 +12,7 @@ phases:
   post_build:
     commands:
       - echo $CODEBUILD_BUILD_SUCCEEDING
+      - echo $SHELL
       # buildが失敗した場合でもpost_buildは実行される。buildが失敗した場合にはデプロイは行わない。
       - if [ $CODEBUILD_BUILD_SUCCEEDING -ne 0 ]; then exit $CODEBUILD_BUILD_SUCCEEDING; fi
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION
