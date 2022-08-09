@@ -1,0 +1,22 @@
+{
+  "executionRoleArn": "[Enter IAM Role ARN]",
+  "containerDefinitions": [
+    {
+      "name": "echo-server",
+      "image": "<IMAGE1_NAME>",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "protocol": "tcp",
+          "containerPort": 80
+        }
+      ]
+    }
+  ],
+  "requiresCompatibilities": ["FARGATE"],
+  "networkMode": "awsvpc",
+  "cpu": "256",
+  "memory": "512",
+  "family": "web-server"
+}
