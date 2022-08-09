@@ -1,5 +1,9 @@
 version: 0.2
 
+env:
+  exported-variables:
+    - AWS_DEFAULT_REGION
+
 phases:
   pre_build:
     commands:
@@ -14,3 +18,11 @@ phases:
       # buildが失敗した場合でもpost_buildは実行される。buildが失敗した場合にはデプロイは行わない。
       - if [ $CODEBUILD_BUILD_SUCCEEDING -ne 1 ]; then echo "Build failed." && exit 1; fi
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - printf '{"ImageURI":"%s"}' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION > imageDetail.json
+
+artifacts:
+  files:
+    - imagedefinitions.json
+    - imageDetail.json
+    - appspec.yml
+    - taskdef.json

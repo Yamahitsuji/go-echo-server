@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "echo-server",
-      "image": "<IMAGE1_NAME>",
+      "image": "<IMAGE_NAME>",
       "essential": true,
       "portMappings": [
         {
