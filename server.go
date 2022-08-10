@@ -41,7 +41,7 @@ func main() {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		fmt.Fprintf(w, "Hello World from %s from v4", host)
+		fmt.Fprintf(w, "Hello World from %s from v5", host)
 	})
 
 	fmt.Println("Starting server at port 80")
