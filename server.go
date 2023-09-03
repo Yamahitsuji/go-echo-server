@@ -35,7 +35,18 @@ func main() {
 		}
 	})
 
+	http.HandleFunc("/internal_server_error", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(os.Stderr, "Internal Server Error Occurred")
+		http.Error(w, "error", http.StatusInternalServerError)
+	})
+
+	http.HandleFunc("/bad_request", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(os.Stderr, "Bad Request Error Occurred")
+		http.Error(w, "error", http.StatusBadRequest)
+	})
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(os.Stdout, "Request Received")
 		host, err := os.Hostname()
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
